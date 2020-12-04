@@ -1,10 +1,10 @@
 object day3 extends App {
 
-  private val data: List[String] = Util.getData("day3")
+  val data: List[String] = Util.getDataInLines("day3")
   val slopes = List((1, 1), (1, 3), (1, 5), (1, 7), (2, 1))
 
-  private val width = data.head.length
-  private val height = data.length
+  val width = data.head.length
+  val height = data.length
 
   def countTreesForSlope(data: List[String], slope: (Int, Int)): Long = {
     val numberOfSteps = height / slope._1

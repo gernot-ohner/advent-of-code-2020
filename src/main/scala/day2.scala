@@ -1,6 +1,6 @@
 object day2 extends App {
 
-  val data: List[String] = Util.getData("day2")
+  val data: List[String] = Util.getDataInLines("day2")
 
   val passwordEntryPattern = "(\\d+)-(\\d+) (\\w): (\\w+)".r
 

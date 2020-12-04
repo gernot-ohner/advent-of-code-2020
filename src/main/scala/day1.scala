@@ -1,6 +1,6 @@
 object day1 extends App {
 
-  val data = Util.getData("day1").map(_.toInt)
+  val data = Util.getDataInLines("day1").map(_.toInt)
 
   def two_sum(data: List[Int], target: Int) = {
     for (
