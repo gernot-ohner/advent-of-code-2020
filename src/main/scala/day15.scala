@@ -1,17 +1,17 @@
 object day15 extends App {
 
-  val data: Array[Long] = Util.getData("day15").split(",").map(_.toLong)
-  val gameEnd = 30000000
+  val data: Array[Int] = Util.getData("day15").split(",").map(_.toInt)
+  val gameEnd = 2020
 
-  val lastTimeSpokenMap = scala.collection.mutable.Map.empty[Long, Long]
-  data.zipWithIndex.foreach((l: (Long, Int)) => lastTimeSpokenMap.addOne(l._1, l._2 + 1))
+  @scala.annotation.tailrec
+  def recursion(lastTimeSpokenMap: Map[Int, Int], lastNumberSpoken: Int, i: Int, gameEnd: Int): Int = {
+    if (i >= gameEnd) return lastNumberSpoken
 
-  var lastNumberSpoken: Long = data.last
-  (data.length + 1 to gameEnd).foreach(i => {
-    val nextNumberSpoken: Long = lastTimeSpokenMap.get(lastNumberSpoken).map(i - 1 - _).getOrElse(0L)
-    lastTimeSpokenMap.put(lastNumberSpoken, i - 1)
-    lastNumberSpoken = nextNumberSpoken
-  })
+    val nextNumberSpoken = lastTimeSpokenMap.get(lastNumberSpoken).map(i - 1 - _).getOrElse(0)
+    val newMap = lastTimeSpokenMap.updated(lastNumberSpoken, i - 1)
+    recursion(newMap, nextNumberSpoken, i + 1, gameEnd)
+  }
 
+  val lastNumberSpoken = recursion(data.zipWithIndex.toMap, data.last, data.length, gameEnd)
   println(s"The ${gameEnd}th number spoken is $lastNumberSpoken")
 }
